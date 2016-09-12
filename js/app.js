@@ -47,10 +47,39 @@ $(document).ready(function(){
 
   		$("ul#guessList").append("<li>" + currGuess + "</li>");
 
+  		userFeedback();
+  		
+  		if (gamerOver) {
+  			return;
+  		}
+
+  		$(this)[0].reset();
+  	});
+
+  	$(".new").on('click', function() {
+  		newGame();
+  	});
+
+
+
+  	function newGame() {
+  		winningNum = Math.floor((Math.random() * 100) + 1);
+  		currGuess = null;
+  		currDistance = null;
+  		prevGuess = null;
+  		prevDistance = null;
+  		guessCounter = 0;
+  		$("h2#feedback").text("Make Your Guess!");
+  		$("#guessList").children().remove();
+  		$("span#count").text(guessCounter);
+  		gameOver = false;
+  		$("form")[0].reset();
+  	}
+
+  	function userFeedback() {
   		if (currGuess == winningNum) {
   			$("h2#feedback").text("You Win!!!");
-  			gameOver = true;
-  			return;
+  			return gameOver = true;
   		}
 
   		if (prevGuess != null) {
@@ -79,27 +108,6 @@ $(document).ready(function(){
   				$("h2#feedback").text("Very Cold!");
   			}
   		}
-  		$(this)[0].reset();
-  	});
-
-  	$(".new").on('click', function() {
-  		newGame();
-  	});
-
-
-
-  	function newGame() {
-  		winningNum = Math.floor((Math.random() * 100) + 1);
-  		currGuess = null;
-  		currDistance = null;
-  		prevGuess = null;
-  		prevDistance = null;
-  		guessCounter = 0;
-  		$("h2#feedback").text("Make Your Guess!");
-  		$("#guessList").children().remove();
-  		$("span#count").text(guessCounter);
-  		gameOver = false;
-  		$("form")[0].reset();
   	}
 });
 
